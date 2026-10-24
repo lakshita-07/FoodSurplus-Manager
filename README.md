@@ -1,6 +1,6 @@
 # Food Surplus Collection, Matching & Redistribution Management System
 
-A local Flask + MySQL web prototype for Review 3. It uses the existing `food_surplus_db` schema and includes a dashboard, record search, CRUD screens, form validation, and the `deliverysummary` view.
+A local Flask + MySQL web prototype . It uses the existing `food_surplus_db` schema and includes a dashboard, record search, CRUD screens, form validation, and the `deliverysummary` view.
 
 ## Tech stack
 
@@ -58,7 +58,7 @@ Open <http://127.0.0.1:5000> in your browser. Keep the terminal window open whil
 
 ## Database backup and restore
 
-The supplied `database/food_surplus_backup.sql` is a backup of the schema and sample records. **Do not import it over your current database unless you intentionally want to replace that database.** The dump contains `DROP TABLE` statements. To restore it as a separate copy, first create a separate database and edit the dump's `USE`/database context if required, or use a dedicated test MySQL instance. For Review 3, the preferred approach is to connect to your already existing `food_surplus_db`.
+The supplied `database/food_surplus_backup.sql` is a backup of the schema and sample records. **Do not import it over your current database unless you intentionally want to replace that database.** The dump contains `DROP TABLE` statements. To restore it as a separate copy, first create a separate database and edit the dump's `USE`/database context if required, or use a dedicated test MySQL instance. The preferred approach is to connect to your already existing `food_surplus_db`.
 
 The form relies on MySQL to generate record IDs. If your existing database gives a “Field '…ID' doesn't have a default value” error when adding a record, run the entire `database/enable_auto_increment.sql` script in MySQL Workbench with `food_surplus_db` selected. It temporarily removes and restores the related foreign keys while updating the six primary-key columns; it does not delete existing records. Newly created databases from `database/food_surplus_db.sql` already have auto-incrementing IDs.
 
@@ -75,7 +75,7 @@ Before pushing, review the files you plan to share. Never commit `.env`, passwor
 git init
 git add .
 git status
-git commit -m "Build Food Surplus Review 3 prototype"
+git commit -m "Build Food Surplus prototype"
 git branch -M main
 git remote add origin https://github.com/YOUR-GITHUB-USERNAME/food-surplus-management-system.git
 git push -u origin main
