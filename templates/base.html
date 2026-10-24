@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}FoodSurplus{% endblock %} · Food Surplus Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">FS</span><span>FoodSurplus<small>Collection & redistribution</small></span></a><nav><a href="{{ url_for('index') }}">Dashboard</a><a href="{{ url_for('delivery_summary') }}">Delivery summary</a></nav></header>
+<div class="layout"><aside class="sidebar"><p class="nav-label">DATABASE</p>{% for key, item in tables.items() %}<a class="side-link {% if request.view_args and request.view_args.get('table_name') == key %}active{% endif %}" href="{{ url_for('table_view', table_name=key) }}"><span>{{ item.label }}</span><span class="arrow">›</span></a>{% endfor %}</aside>
+<main class="content">{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}{% block content %}{% endblock %}<footer>Food Surplus Collection, Matching & Redistribution Management System</footer></main></div>
+</body></html>
