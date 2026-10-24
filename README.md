@@ -2,6 +2,14 @@
 
 A local Flask + MySQL web prototype for Review 3. It uses the existing `food_surplus_db` schema and includes a dashboard, record search, CRUD screens, form validation, and the `deliverysummary` view.
 
+## Tech stack
+
+- **Backend:** Python with Flask
+- **Database:** MySQL, using the InnoDB storage engine
+- **Database driver:** `mysql-connector-python`
+- **Frontend:** HTML, CSS, and Jinja templates rendered by Flask
+- **Configuration:** Environment variables loaded from `.env` with `python-dotenv`
+
 ## Features
 
 - Dashboard counts for donors, donations, food categories, recipients, volunteers, and redistributions.
@@ -27,10 +35,20 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-cp .env.example .env
 ```
 
-Edit `.env` with the MySQL username and password you use in Workbench. Do not commit `.env` to GitHub.
+Create a file named `.env` in the project folder and add your local MySQL connection settings:
+
+```dotenv
+FLASK_SECRET_KEY=replace-with-a-random-secret
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your-local-mysql-password
+DB_NAME=food_surplus_db
+```
+
+Replace the example values with your own settings. Keep `.env` private: it is excluded by `.gitignore` and must not be pushed to GitHub. The app defaults to `127.0.0.1` (your own computer) and is intended for local use.
 
 ```bash
 python app.py
@@ -45,6 +63,10 @@ The supplied `database/food_surplus_backup.sql` is a backup of the schema and sa
 The form relies on MySQL to generate record IDs. If your existing database gives a “Field '…ID' doesn't have a default value” error when adding a record, run the entire `database/enable_auto_increment.sql` script in MySQL Workbench with `food_surplus_db` selected. It temporarily removes and restores the related foreign keys while updating the six primary-key columns; it does not delete existing records. Newly created databases from `database/food_surplus_db.sql` already have auto-incrementing IDs.
 
 ## GitHub setup
+
+You can push the project source code to GitHub even though the app and MySQL database run only on your computer. GitHub stores the files; it does not run this Flask app or host your local MySQL database. Other people who clone the project need to install the requirements, configure their own `.env`, and create or restore their own database.
+
+Before pushing, review the files you plan to share. Never commit `.env`, passwords, API keys, or real/private records. The SQL files can contain sample data and schema details, so inspect them before making the repository public. `.env` is already listed in `.gitignore`; do not force-add it.
 
 1. Create an empty repository named `food-surplus-management-system` on GitHub.
 2. From this folder, run:
